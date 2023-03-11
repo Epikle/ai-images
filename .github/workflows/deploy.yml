@@ -24,7 +24,12 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
+      - name: Check for changes
+        run: |
+          git diff --quiet || echo "::set-output name=changes::true"
+
       - name: Commit JSON file
+        if: ${{steps.check_for_changes.outputs.changes == 'true'}}
         run: |
           git add images_list.json
           git commit -m "Add images_list.json"
