@@ -28,11 +28,7 @@ jobs:
         run: |
           git add images_list.json
           git commit -m "Add images_list.json"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git push
 
       - run: npm ci
       - run: npm run build
