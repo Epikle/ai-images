@@ -1,0 +1,40 @@
+name: List Files and Create JSON and Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  list-files-and-create-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+
+      - name: List .png files in images folder
+        run: |
+          find images/ -type f -name "*.png" > images_list.txt
+
+      - name: Create JSON file
+        run: |
+          jq -Rs 'split("\n") | map(select(length > 0)) | {"images": .}' images_list.txt > images_list.json
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Commit JSON file
+        run: |
+          git add images_list.json
+          git commit -m "Add images_list.json"
+          git push
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
