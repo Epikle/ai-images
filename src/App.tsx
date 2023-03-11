@@ -28,7 +28,11 @@ const App = () => {
       <h1>AI Images</h1>
       <div className={styles.images}>
         {images.map((image) => (
-          <img key={image} src={image} alt="ai generated" />
+          <img
+            key={image}
+            src={`https://raw.githubusercontent.com/Epikle/ai-images/main/${image}`}
+            alt="ai generated"
+          />
         ))}
       </div>
     </div>
