@@ -28,16 +28,10 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
-      - name: Check for changes
-        id: check-changes
-        run: |
-          git diff --quiet || echo "CHANGES='true'" >> $GITHUB_OUTPUT
-
       - name: Commit JSON file
-        if: ${{ steps.check-changes.outputs.CHANGES == 'true' }}
         run: |
           git add images_list.json
-          git commit -m "Add images_list.json"
+          git commit -m "Add images_list.json" || echo Nothing to commit
           git push
 
       - name: Install dependencies and build

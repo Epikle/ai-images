@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import styles from './App.module.scss';
 
-const baseUrl = import.meta.env.VITE_BASEURL;
+const baseUrl: string = import.meta.env.VITE_BASEURL;
 
 const App = () => {
   const [images, setImages] = useState<string[]>([]);
@@ -30,12 +30,7 @@ const App = () => {
 
   return (
     <div className={styles.app}>
-      {!isLoading && (
-        <div
-          className={styles.bg}
-          style={{ backgroundImage: `url(${baseUrl}/${images[0]})` }}
-        />
-      )}
+      <div className={styles.bg} />
       <header>
         {isLoading ? <h1>Loading AI Images</h1> : <h1>AI Images</h1>}
       </header>

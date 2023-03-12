@@ -4,11 +4,13 @@
   .bg {
     position: fixed;
     inset: 0;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: rgb(100, 72, 254);
+    background: linear-gradient(
+      0deg,
+      rgba(100, 72, 254, 0.5) 0%,
+      rgba(96, 5, 148, 0.5) 100%
+    );
     z-index: -1;
-    filter: blur(10px);
   }
 
   header {
