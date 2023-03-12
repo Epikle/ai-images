@@ -7,6 +7,10 @@ on:
 jobs:
   list-files-and-create-json:
     runs-on: ubuntu-latest
+
+    env:
+      VITE_BASEURL: ${{ secrets.VITE_BASEURL }}
+
     steps:
       - name: Checkout branch
         uses: actions/checkout@v3
@@ -35,10 +39,14 @@ jobs:
           git commit -m "Add images_list.json"
           git push
 
-      - run: npm ci
-      - run: npm run build
+      - name: Install dependencies and build
+        if: ${{ contains( join(github.event.commits.*.message, ' '), '#build' ) }}
+        run: |
+          npm ci
+          npm run build
 
       - name: Deploy
+        if: ${{ contains( join(github.event.commits.*.message, ' '), '#build' ) }}
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
