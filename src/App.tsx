@@ -33,7 +33,7 @@ const App = () => {
       {!isLoading && (
         <div
           className={styles.bg}
-          style={{ backgroundImage: `url(${images[0]})` }}
+          style={{ backgroundImage: `url(${baseUrl}/${images[0]})` }}
         />
       )}
       <header>
