@@ -37,7 +37,12 @@ const App = () => {
       <div className={styles.images}>
         {!isLoading &&
           images.map((image) => (
-            <img key={image} src={`${baseUrl}/${image}`} alt="ai generated" />
+            <img
+              key={image}
+              src={`${baseUrl}/${image}`}
+              alt="ai generated"
+              loading="lazy"
+            />
           ))}
       </div>
     </div>
